@@ -1,0 +1,577 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B1609C351C9B394A0013DD25 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1609C341C9B394A0013DD25 /* Stroke.swift */; };
+		B1609C361C9B394A0013DD25 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1609C341C9B394A0013DD25 /* Stroke.swift */; };
+		B1609C371C9B394A0013DD25 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1609C341C9B394A0013DD25 /* Stroke.swift */; };
+		B18DF0121C4545F100BC32C4 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DF0111C4545F100BC32C4 /* GraphView.swift */; };
+		B18DF0131C4545F100BC32C4 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DF0111C4545F100BC32C4 /* GraphView.swift */; };
+		B18DF0151C4547E900BC32C4 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DF0141C4547E900BC32C4 /* GraphViewController.swift */; };
+		B18DF0161C4547E900BC32C4 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DF0141C4547E900BC32C4 /* GraphViewController.swift */; };
+		B19CC4A21C66709D00E86E96 /* HeartRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */; };
+		B19CC4A31C66709D00E86E96 /* HeartRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */; };
+		B19CC4A41C66709D00E86E96 /* HeartRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */; };
+		B1B648C11C417EAA0000D3DA /* LactationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B648C01C417EAA0000D3DA /* LactationTableViewCell.swift */; };
+		B1B648C31C41826F0000D3DA /* Lactation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B648C21C41826F0000D3DA /* Lactation.swift */; };
+		B1B648C41C41826F0000D3DA /* Lactation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B648C21C41826F0000D3DA /* Lactation.swift */; };
+		B1B648C61C41BAA20000D3DA /* LactationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B648C51C41BAA20000D3DA /* LactationTableViewController.swift */; };
+		B1B648C71C41BAA20000D3DA /* LactationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B648C51C41BAA20000D3DA /* LactationTableViewController.swift */; };
+		B1CFE0191C9701E900695C7A /* PM5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CFE0181C9701E900695C7A /* PM5ViewController.swift */; };
+		B1CFE01A1C9701E900695C7A /* PM5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CFE0181C9701E900695C7A /* PM5ViewController.swift */; };
+		B1CFE01B1C9701E900695C7A /* PM5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CFE0181C9701E900695C7A /* PM5ViewController.swift */; };
+		B1DB28E81C441F7700C16F71 /* Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB28E71C441F7700C16F71 /* Split.swift */; };
+		B1DB28E91C441F7700C16F71 /* Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB28E71C441F7700C16F71 /* Split.swift */; };
+		B1F1BD201C3F4427000A3EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1BD1F1C3F4427000A3EF1 /* AppDelegate.swift */; };
+		B1F1BD221C3F4427000A3EF1 /* LactationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1BD211C3F4427000A3EF1 /* LactationViewController.swift */; };
+		B1F1BD251C3F4427000A3EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1F1BD231C3F4427000A3EF1 /* Main.storyboard */; };
+		B1F1BD271C3F4427000A3EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F1BD261C3F4427000A3EF1 /* Assets.xcassets */; };
+		B1F1BD2A1C3F4427000A3EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1F1BD281C3F4427000A3EF1 /* LaunchScreen.storyboard */; };
+		B1F1BD351C3F4427000A3EF1 /* LacCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1BD341C3F4427000A3EF1 /* LacCalcTests.swift */; };
+		B1F1BD401C3F4428000A3EF1 /* LacCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F1BD3F1C3F4428000A3EF1 /* LacCalcUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B1F1BD311C3F4427000A3EF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1F1BD141C3F4427000A3EF1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1F1BD1B1C3F4427000A3EF1;
+			remoteInfo = LacCalc;
+		};
+		B1F1BD3C1C3F4428000A3EF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1F1BD141C3F4427000A3EF1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1F1BD1B1C3F4427000A3EF1;
+			remoteInfo = LacCalc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B1609C341C9B394A0013DD25 /* Stroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stroke.swift; sourceTree = "<group>"; };
+		B18DF0111C4545F100BC32C4 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		B18DF0141C4547E900BC32C4 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateViewController.swift; sourceTree = "<group>"; };
+		B1B648C01C417EAA0000D3DA /* LactationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LactationTableViewCell.swift; sourceTree = "<group>"; };
+		B1B648C21C41826F0000D3DA /* Lactation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lactation.swift; sourceTree = "<group>"; };
+		B1B648C51C41BAA20000D3DA /* LactationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LactationTableViewController.swift; sourceTree = "<group>"; };
+		B1CFE0181C9701E900695C7A /* PM5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PM5ViewController.swift; sourceTree = "<group>"; };
+		B1DB28E71C441F7700C16F71 /* Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Split.swift; sourceTree = "<group>"; };
+		B1F1BD1C1C3F4427000A3EF1 /* LacCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LacCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1F1BD1F1C3F4427000A3EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B1F1BD211C3F4427000A3EF1 /* LactationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LactationViewController.swift; sourceTree = "<group>"; };
+		B1F1BD241C3F4427000A3EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B1F1BD261C3F4427000A3EF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B1F1BD291C3F4427000A3EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B1F1BD2B1C3F4427000A3EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1F1BD301C3F4427000A3EF1 /* LacCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LacCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1F1BD341C3F4427000A3EF1 /* LacCalcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LacCalcTests.swift; sourceTree = "<group>"; };
+		B1F1BD361C3F4427000A3EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1F1BD3B1C3F4428000A3EF1 /* LacCalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LacCalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1F1BD3F1C3F4428000A3EF1 /* LacCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LacCalcUITests.swift; sourceTree = "<group>"; };
+		B1F1BD411C3F4428000A3EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B1F1BD191C3F4427000A3EF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F1BD2D1C3F4427000A3EF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F1BD381C3F4428000A3EF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B1F1BD131C3F4427000A3EF1 = {
+			isa = PBXGroup;
+			children = (
+				B1F1BD1E1C3F4427000A3EF1 /* LacCalc */,
+				B1F1BD331C3F4427000A3EF1 /* LacCalcTests */,
+				B1F1BD3E1C3F4428000A3EF1 /* LacCalcUITests */,
+				B1F1BD1D1C3F4427000A3EF1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B1F1BD1D1C3F4427000A3EF1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1F1BD1C1C3F4427000A3EF1 /* LacCalc.app */,
+				B1F1BD301C3F4427000A3EF1 /* LacCalcTests.xctest */,
+				B1F1BD3B1C3F4428000A3EF1 /* LacCalcUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B1F1BD1E1C3F4427000A3EF1 /* LacCalc */ = {
+			isa = PBXGroup;
+			children = (
+				B1F1BD1F1C3F4427000A3EF1 /* AppDelegate.swift */,
+				B1F1BD211C3F4427000A3EF1 /* LactationViewController.swift */,
+				B1F1BD231C3F4427000A3EF1 /* Main.storyboard */,
+				B18DF0141C4547E900BC32C4 /* GraphViewController.swift */,
+				B18DF0111C4545F100BC32C4 /* GraphView.swift */,
+				B1B648C01C417EAA0000D3DA /* LactationTableViewCell.swift */,
+				B1F1BD261C3F4427000A3EF1 /* Assets.xcassets */,
+				B1F1BD281C3F4427000A3EF1 /* LaunchScreen.storyboard */,
+				B1F1BD2B1C3F4427000A3EF1 /* Info.plist */,
+				B1B648C21C41826F0000D3DA /* Lactation.swift */,
+				B1DB28E71C441F7700C16F71 /* Split.swift */,
+				B1609C341C9B394A0013DD25 /* Stroke.swift */,
+				B1B648C51C41BAA20000D3DA /* LactationTableViewController.swift */,
+				B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */,
+				B1CFE0181C9701E900695C7A /* PM5ViewController.swift */,
+			);
+			path = LacCalc;
+			sourceTree = "<group>";
+		};
+		B1F1BD331C3F4427000A3EF1 /* LacCalcTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1F1BD341C3F4427000A3EF1 /* LacCalcTests.swift */,
+				B1F1BD361C3F4427000A3EF1 /* Info.plist */,
+			);
+			path = LacCalcTests;
+			sourceTree = "<group>";
+		};
+		B1F1BD3E1C3F4428000A3EF1 /* LacCalcUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B1F1BD3F1C3F4428000A3EF1 /* LacCalcUITests.swift */,
+				B1F1BD411C3F4428000A3EF1 /* Info.plist */,
+			);
+			path = LacCalcUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B1F1BD1B1C3F4427000A3EF1 /* LacCalc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1F1BD441C3F4428000A3EF1 /* Build configuration list for PBXNativeTarget "LacCalc" */;
+			buildPhases = (
+				B1F1BD181C3F4427000A3EF1 /* Sources */,
+				B1F1BD191C3F4427000A3EF1 /* Frameworks */,
+				B1F1BD1A1C3F4427000A3EF1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LacCalc;
+			productName = LacCalc;
+			productReference = B1F1BD1C1C3F4427000A3EF1 /* LacCalc.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B1F1BD2F1C3F4427000A3EF1 /* LacCalcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1F1BD471C3F4428000A3EF1 /* Build configuration list for PBXNativeTarget "LacCalcTests" */;
+			buildPhases = (
+				B1F1BD2C1C3F4427000A3EF1 /* Sources */,
+				B1F1BD2D1C3F4427000A3EF1 /* Frameworks */,
+				B1F1BD2E1C3F4427000A3EF1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1F1BD321C3F4427000A3EF1 /* PBXTargetDependency */,
+			);
+			name = LacCalcTests;
+			productName = LacCalcTests;
+			productReference = B1F1BD301C3F4427000A3EF1 /* LacCalcTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B1F1BD3A1C3F4428000A3EF1 /* LacCalcUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1F1BD4A1C3F4428000A3EF1 /* Build configuration list for PBXNativeTarget "LacCalcUITests" */;
+			buildPhases = (
+				B1F1BD371C3F4428000A3EF1 /* Sources */,
+				B1F1BD381C3F4428000A3EF1 /* Frameworks */,
+				B1F1BD391C3F4428000A3EF1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1F1BD3D1C3F4428000A3EF1 /* PBXTargetDependency */,
+			);
+			name = LacCalcUITests;
+			productName = LacCalcUITests;
+			productReference = B1F1BD3B1C3F4428000A3EF1 /* LacCalcUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B1F1BD141C3F4427000A3EF1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Thomas Satterthwaite";
+				TargetAttributes = {
+					B1F1BD1B1C3F4427000A3EF1 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 5765UP6993;
+					};
+					B1F1BD2F1C3F4427000A3EF1 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = B1F1BD1B1C3F4427000A3EF1;
+					};
+					B1F1BD3A1C3F4428000A3EF1 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = B1F1BD1B1C3F4427000A3EF1;
+					};
+				};
+			};
+			buildConfigurationList = B1F1BD171C3F4427000A3EF1 /* Build configuration list for PBXProject "LacCalc" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B1F1BD131C3F4427000A3EF1;
+			productRefGroup = B1F1BD1D1C3F4427000A3EF1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B1F1BD1B1C3F4427000A3EF1 /* LacCalc */,
+				B1F1BD2F1C3F4427000A3EF1 /* LacCalcTests */,
+				B1F1BD3A1C3F4428000A3EF1 /* LacCalcUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B1F1BD1A1C3F4427000A3EF1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1F1BD2A1C3F4427000A3EF1 /* LaunchScreen.storyboard in Resources */,
+				B1F1BD271C3F4427000A3EF1 /* Assets.xcassets in Resources */,
+				B1F1BD251C3F4427000A3EF1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F1BD2E1C3F4427000A3EF1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F1BD391C3F4428000A3EF1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B1F1BD181C3F4427000A3EF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1B648C11C417EAA0000D3DA /* LactationTableViewCell.swift in Sources */,
+				B1B648C31C41826F0000D3DA /* Lactation.swift in Sources */,
+				B18DF0121C4545F100BC32C4 /* GraphView.swift in Sources */,
+				B1F1BD221C3F4427000A3EF1 /* LactationViewController.swift in Sources */,
+				B1609C351C9B394A0013DD25 /* Stroke.swift in Sources */,
+				B1F1BD201C3F4427000A3EF1 /* AppDelegate.swift in Sources */,
+				B18DF0151C4547E900BC32C4 /* GraphViewController.swift in Sources */,
+				B19CC4A21C66709D00E86E96 /* HeartRateViewController.swift in Sources */,
+				B1DB28E81C441F7700C16F71 /* Split.swift in Sources */,
+				B1B648C61C41BAA20000D3DA /* LactationTableViewController.swift in Sources */,
+				B1CFE0191C9701E900695C7A /* PM5ViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F1BD2C1C3F4427000A3EF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B19CC4A31C66709D00E86E96 /* HeartRateViewController.swift in Sources */,
+				B18DF0131C4545F100BC32C4 /* GraphView.swift in Sources */,
+				B1F1BD351C3F4427000A3EF1 /* LacCalcTests.swift in Sources */,
+				B1CFE01A1C9701E900695C7A /* PM5ViewController.swift in Sources */,
+				B1609C361C9B394A0013DD25 /* Stroke.swift in Sources */,
+				B1B648C41C41826F0000D3DA /* Lactation.swift in Sources */,
+				B18DF0161C4547E900BC32C4 /* GraphViewController.swift in Sources */,
+				B1DB28E91C441F7700C16F71 /* Split.swift in Sources */,
+				B1B648C71C41BAA20000D3DA /* LactationTableViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F1BD371C3F4428000A3EF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1F1BD401C3F4428000A3EF1 /* LacCalcUITests.swift in Sources */,
+				B19CC4A41C66709D00E86E96 /* HeartRateViewController.swift in Sources */,
+				B1CFE01B1C9701E900695C7A /* PM5ViewController.swift in Sources */,
+				B1609C371C9B394A0013DD25 /* Stroke.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B1F1BD321C3F4427000A3EF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1F1BD1B1C3F4427000A3EF1 /* LacCalc */;
+			targetProxy = B1F1BD311C3F4427000A3EF1 /* PBXContainerItemProxy */;
+		};
+		B1F1BD3D1C3F4428000A3EF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1F1BD1B1C3F4427000A3EF1 /* LacCalc */;
+			targetProxy = B1F1BD3C1C3F4428000A3EF1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B1F1BD231C3F4427000A3EF1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B1F1BD241C3F4427000A3EF1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B1F1BD281C3F4427000A3EF1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B1F1BD291C3F4427000A3EF1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B1F1BD421C3F4428000A3EF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B1F1BD431C3F4428000A3EF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B1F1BD451C3F4428000A3EF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = LacCalc/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.satterthwaite.LacCalc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B1F1BD461C3F4428000A3EF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = LacCalc/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.satterthwaite.LacCalc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B1F1BD481C3F4428000A3EF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LacCalcTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.satterthwaite.LacCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LacCalc.app/LacCalc";
+			};
+			name = Debug;
+		};
+		B1F1BD491C3F4428000A3EF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LacCalcTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.satterthwaite.LacCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LacCalc.app/LacCalc";
+			};
+			name = Release;
+		};
+		B1F1BD4B1C3F4428000A3EF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LacCalcUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.satterthwaite.LacCalcUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LacCalc;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		B1F1BD4C1C3F4428000A3EF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LacCalcUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.satterthwaite.LacCalcUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LacCalc;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B1F1BD171C3F4427000A3EF1 /* Build configuration list for PBXProject "LacCalc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1F1BD421C3F4428000A3EF1 /* Debug */,
+				B1F1BD431C3F4428000A3EF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1F1BD441C3F4428000A3EF1 /* Build configuration list for PBXNativeTarget "LacCalc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1F1BD451C3F4428000A3EF1 /* Debug */,
+				B1F1BD461C3F4428000A3EF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1F1BD471C3F4428000A3EF1 /* Build configuration list for PBXNativeTarget "LacCalcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1F1BD481C3F4428000A3EF1 /* Debug */,
+				B1F1BD491C3F4428000A3EF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1F1BD4A1C3F4428000A3EF1 /* Build configuration list for PBXNativeTarget "LacCalcUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1F1BD4B1C3F4428000A3EF1 /* Debug */,
+				B1F1BD4C1C3F4428000A3EF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B1F1BD141C3F4427000A3EF1 /* Project object */;
+}
