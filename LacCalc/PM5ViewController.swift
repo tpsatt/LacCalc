@@ -29,7 +29,7 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         ratioLabel.text = "0"
         peakForceLabel.text = "0 lbs."
         avgForceLabel.text = "0 lbs."
-        advancedView.hidden = true
+        advancedView.isHidden = true
 
     }
 
@@ -62,64 +62,64 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     var avgSplit: String!
     var strokeRate: String!
     
-    @IBAction func segmentedControlChanged(sender : AnyObject) {
+    @IBAction func segmentedControlChanged(_ sender : AnyObject) {
         if (segmentedControl.selectedSegmentIndex == 0) {
-            simpleView.hidden = false
-            advancedView.hidden = true
+            simpleView.isHidden = false
+            advancedView.isHidden = true
         } else if (segmentedControl.selectedSegmentIndex == 1) {
-            simpleView.hidden = true
-            advancedView.hidden = false
+            simpleView.isHidden = true
+            advancedView.isHidden = false
         }
     }
     
-    func centralManagerDidUpdateState(central: CBCentralManager) {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-        case .PoweredOn:
-            central.scanForPeripheralsWithServices([CBUUID(string: "CE060000-43E5-11E4-916C-0800200C9A66")], options: nil)
+        case .poweredOn:
+            central.scanForPeripherals(withServices: [CBUUID(string: "CE060000-43E5-11E4-916C-0800200C9A66")], options: nil)
         default:
             print(central.state)
         }
     }
     
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         central.stopScan()
-        central.connectPeripheral(peripheral, options: nil)
+        central.connect(peripheral, options: nil)
     }
     
-    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
         peripheral.discoverServices(nil)
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let actualError = error {
             print(actualError)
         } else {
             for service in peripheral.services as [CBService]! {
-                peripheral.discoverCharacteristics(nil, forService: service)
+                peripheral.discoverCharacteristics(nil, for: service)
             }
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let actualError = error {
             print(actualError)
         } else {
-            if service.UUID == CBUUID(string: "CE060000-43E5-11E4-916C-0800200C9A66") {
+            if service.uuid == CBUUID(string: "CE060000-43E5-11E4-916C-0800200C9A66") {
                 for characteristic in service.characteristics as [CBCharacteristic]! {
-                    switch characteristic.UUID.UUIDString {
+                    switch characteristic.uuid.uuidString {
                     case "0x0031":
                         print("Found 0x0031 data packet characteristic")
                         navigationItem.title = "Connected to PM5"
-                        peripheral.setNotifyValue(true, forCharacteristic: characteristic)
+                        peripheral.setNotifyValue(true, for: characteristic)
                     case "0x0032":
                         print("Found 0x0032 data packet characteristic")
                         navigationItem.title = "Connected to PM5"
-                        peripheral.setNotifyValue(true, forCharacteristic: characteristic)
+                        peripheral.setNotifyValue(true, for: characteristic)
                     case "0x0035":
                         print("Found 0x0035 data packet characteristic")
                         navigationItem.title = "Connected to PM5"
-                        peripheral.setNotifyValue(true, forCharacteristic: characteristic)
+                        peripheral.setNotifyValue(true, for: characteristic)
                     default:
                         print("")
                     }
@@ -128,15 +128,15 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         }
     }
     
-    func dataToUnsignedBytes32(value: NSData) -> [UInt32] {
-        let count = value.length
-        var array = [UInt32](count: count, repeatedValue: 0)
-        value.getBytes(&array, length:count*sizeof(UInt32))
+    func dataToUnsignedBytes32(_ value: Data) -> [UInt32] {
+        let count = value.count
+        var array = [UInt32](repeating: 0, count: count)
+        (value as NSData).getBytes(&array, length:count*MemoryLayout<UInt32>.size)
         
         return array
     }
     
-    func updateBasic(PM5Data: NSData) {
+    func updateBasic(_ PM5Data: Data) {
         let dataFromRowing = dataToUnsignedBytes32(PM5Data)
         let distance:Double = Double(dataFromRowing[5]) * 65536 + Double(dataFromRowing[4]) * 256 + Double(dataFromRowing[3])
         distanceLabel.text = String(distance)
@@ -148,7 +148,7 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         dragFactor = Int(drag)
     }
     
-    func updateIntermediate(PM5Data: NSData) {
+    func updateIntermediate(_ PM5Data: Data) {
         let dataFromRowing = dataToUnsignedBytes32(PM5Data)
         let strokeRate = Double(dataFromRowing[5])
         strokeRateLabel.text = String(strokeRate)
@@ -158,7 +158,7 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         avgSplitLabel.text = String(avgSplit)
     }
     
-    func updateAdvanced(PM5Data: NSData) {
+    func updateAdvanced(_ PM5Data: Data) {
         let dataFromRowing = dataToUnsignedBytes32(PM5Data)
         let driveLength = Double(dataFromRowing[6])
         driveLengthLabel.text = String(driveLength)
@@ -178,11 +178,11 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
         strokeCountLabel.text = String(strokeCount)
     }
     
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if let actualError = error {
             print(actualError)
         } else {
-            switch characteristic.UUID.UUIDString {
+            switch characteristic.uuid.uuidString {
             case "0x0031":
                 updateBasic(characteristic.value!)
             case "0x0032":
@@ -198,7 +198,7 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UIBarButtonItem) {
         if (saveButton === sender) {
             avgSplit = avgSplitLabel.text!
             strokeRate = strokeRateLabel.text!

@@ -40,13 +40,14 @@ class GraphViewController: UIViewController {
     @IBOutlet weak var maxWattsDate : UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
         scrollView.contentSize.height = splitGraphView.bounds.height + wattsGraphView.bounds.height + 30
     }
     
     func setUpGraph() {
         
-        var lactations:[Lactation] = (NSKeyedUnarchiver.unarchiveObjectWithFile(Lactation.ArchiveURL.path!) as? [Lactation])!
+        //var lactations:[Lactation] = (NSKeyedUnarchiver.unarchiveObject(withFile: Lactation.ArchiveURL.path) as? [Lactation])!
+        var lactations: [Lactation] = NSKeyedUnarchiver.unarchiveObject(withFile: Lactation.ArchiveURL.path) as! [Lactation]
         
         wattsGraphView.yPoints.removeAll()
         wattsGraphView.xPoints.removeAll()
@@ -60,29 +61,29 @@ class GraphViewController: UIViewController {
             splitGraphView.xPoints.append(Int(lactations[i].date.timeIntervalSince1970))
         }
         
-        maxWattsLabel.text = "\(wattsGraphView.yPoints.maxElement()!/10)"
-        minWattsLabel.text = "\(wattsGraphView.yPoints.minElement()!/10)"
-        var maxSplit:String = Split.convertSecondsToSplit(Double(splitGraphView.yPoints.maxElement()!/10))
-        var minSplit:String = Split.convertSecondsToSplit(Double(splitGraphView.yPoints.minElement()!/10))
+        maxWattsLabel.text = "\(wattsGraphView.yPoints.max()!/10)"
+        minWattsLabel.text = "\(wattsGraphView.yPoints.min()!/10)"
+        var maxSplit:String = Split.convertSecondsToSplit(Double(splitGraphView.yPoints.max()!/10))
+        var minSplit:String = Split.convertSecondsToSplit(Double(splitGraphView.yPoints.min()!/10))
         maxSplit = String(maxSplit.characters.dropLast())
         maxSplit = String(maxSplit.characters.dropLast())
         minSplit = String(minSplit.characters.dropLast())
         minSplit = String(minSplit.characters.dropLast())
         maxSplitLabel.text = maxSplit
         minSplitLabel.text = minSplit
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        minSplitDate.text = dateFormatter.stringFromDate(lactations[0].date)
-        maxSplitDate.text = dateFormatter.stringFromDate(lactations[lactations.count-1].date)
-        minWattsDate.text = dateFormatter.stringFromDate(lactations[0].date)
-        maxWattsDate.text = dateFormatter.stringFromDate(lactations[lactations.count-1].date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        minSplitDate.text = dateFormatter.string(from: lactations[0].date as Date)
+        maxSplitDate.text = dateFormatter.string(from: lactations[lactations.count-1].date as Date)
+        minWattsDate.text = dateFormatter.string(from: lactations[0].date as Date)
+        maxWattsDate.text = dateFormatter.string(from: lactations[lactations.count-1].date as Date)
     }
 
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         scrollView.contentSize.height = splitGraphView.bounds.height + wattsGraphView.bounds.height + 30

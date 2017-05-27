@@ -16,10 +16,10 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
         if let lactation = lactation {
-            let dateString = dateFormatter.stringFromDate(lactation.date)
+            let dateString = dateFormatter.string(from: lactation.date as Date)
             navigationItem.title = dateString
             dateLabel.text = dateString
             splitMinute.text = NSString(format: "%i", lactation.split.minutes) as String
@@ -30,41 +30,41 @@ class ViewController: UIViewController {
             if (lactation.dragFactor != 0) { dragFactor.text = NSString(format: "%i", lactation.dragFactor!) as String }
             if (lactation.heartRate != 0) {
                 heartRateLabel.text = NSString(format: "%i", lactation.heartRate!) as String
-                heartButton.setImage(UIImage(named: "heartFilledIcon"), forState: UIControlState.Normal)
+                heartButton.setImage(UIImage(named: "heartFilledIcon"), for: UIControlState())
             }
         } else {
-            dateLabel.text = dateFormatter.stringFromDate(NSDate())
+            dateLabel.text = dateFormatter.string(from: Date())
         }
         
         dateView.frame.size.height = 45
         
         let displayTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.convertLabelUnits))
-        displayView.userInteractionEnabled = true
+        displayView.isUserInteractionEnabled = true
         displayView.addGestureRecognizer(displayTap)
-        datePicker.addTarget(self, action: #selector(ViewController.datePickerChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        datePicker.addTarget(self, action: #selector(ViewController.datePickerChanged(_:)), for: UIControlEvents.valueChanged)
         let dateTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.showDatePicker))
-        dateView.userInteractionEnabled = true
+        dateView.isUserInteractionEnabled = true
         dateView.addGestureRecognizer(dateTap)
         let viewTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboards))
         view.addGestureRecognizer(viewTap)
-        datePicker.date = dateFormatter.dateFromString(dateLabel.text!)!
+        datePicker.date = dateFormatter.date(from: dateLabel.text!)!
         let splitTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.editSplit))
-        splitView.userInteractionEnabled = true
+        splitView.isUserInteractionEnabled = true
         splitView.addGestureRecognizer(splitTap)
         let lacticAcidTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.editLacticAcid))
-        lacticAcidView.userInteractionEnabled = true
+        lacticAcidView.isUserInteractionEnabled = true
         lacticAcidView.addGestureRecognizer(lacticAcidTap)
         let strokeRateTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.editStrokeRate))
-        strokeRateView.userInteractionEnabled = true
+        strokeRateView.isUserInteractionEnabled = true
         strokeRateView.addGestureRecognizer(strokeRateTap)
         let dragFactorTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.editDragFactor))
-        dragFactorView.userInteractionEnabled = true
+        dragFactorView.isUserInteractionEnabled = true
         dragFactorView.addGestureRecognizer(dragFactorTap)
         splitOrigin = splitView.frame.origin.y
         scrollView.contentSize.height = 344
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,31 +102,31 @@ class ViewController: UIViewController {
     var lactation:Lactation?
     var splitOrigin:CGFloat!
     
-    func keyboardWillShow(notification : NSNotification) {
-        var info = notification.userInfo!
-        var keyboardFrame : CGRect = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
+    func keyboardWillShow(_ notification : Notification) {
+        var info = (notification as NSNotification).userInfo!
+        var keyboardFrame : CGRect = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         var contentInset:UIEdgeInsets = self.scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + 20
         self.scrollView.contentInset = contentInset
     }
     
-    func keyboardWillHide(notification : NSNotification) {
+    func keyboardWillHide(_ notification : Notification) {
         
     }
     
-    func datePickerChanged(datePicker:UIDatePicker) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        dateLabel.text = dateFormatter.stringFromDate(datePicker.date)
+    func datePickerChanged(_ datePicker:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        dateLabel.text = dateFormatter.string(from: datePicker.date)
         if (navigationItem.title != "New Lactic Acid Test") {
-            navigationItem.title = dateFormatter.stringFromDate(datePicker.date)
+            navigationItem.title = dateFormatter.string(from: datePicker.date)
         }
     }
     
     func showDatePicker() {
         dismissKeyboards()
-        UIView.animateWithDuration(0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.dateView.frame.size.height = 269
             self.splitView.frame.origin.y = self.splitOrigin+224
             self.lacticAcidView.frame.origin.y = self.splitOrigin+224+45+8
@@ -135,8 +135,8 @@ class ViewController: UIViewController {
             self.dragFactorView.frame.origin.y = self.splitOrigin+224+45+8+45+8+14+8+45+8
             self.buttonsStackView.frame.origin.y = self.splitOrigin+224+45+8+45+8+14+8+45+8+45+8
             self.displayView.frame.origin.y = self.splitOrigin+224+45+8+45+8+14+8+45+8+45+8+33+8
-        }
-        datePicker.hidden = false
+        }) 
+        datePicker.isHidden = false
         scrollView.contentSize.height = 621
         
     }
@@ -168,8 +168,8 @@ class ViewController: UIViewController {
         lactateLevel.resignFirstResponder()
         strokeRate.resignFirstResponder()
         dragFactor.resignFirstResponder()
-        datePicker.hidden = true
-        UIView.animateWithDuration(0.25) {
+        datePicker.isHidden = true
+        UIView.animate(withDuration: 0.25, animations: {
             self.dateView.frame.size.height = 45
             self.splitView.frame.origin.y = self.splitOrigin
             self.lacticAcidView.frame.origin.y = self.splitOrigin+45+8
@@ -178,20 +178,20 @@ class ViewController: UIViewController {
             self.dragFactorView.frame.origin.y = self.splitOrigin+45+8+45+8+14+8+45+8
             self.buttonsStackView.frame.origin.y = self.splitOrigin+45+8+45+8+14+8+45+8+45+8
             self.displayView.frame.origin.y = self.splitOrigin+45+8+45+8+14+8+45+8+45+8+33+8
-        }
+        }) 
         scrollView.contentSize.height = 344
     }
     
-    @IBAction func cancel(sender: UIBarButtonItem) {
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
         let isPresentingInAddLactationMode = presentingViewController is UINavigationController
         if (isPresentingInAddLactationMode) {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         } else {
-            navigationController!.popViewControllerAnimated(true)
+            navigationController!.popViewController(animated: true)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UIBarButtonItem) {
         if (saveButton === sender) {
             let date = datePicker.date
             let lacticAcid = NSString(string:lactateLevel.text!).doubleValue
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func calculate (sender:UIButton) {
+    @IBAction func calculate (_ sender:UIButton) {
         let lactate:Double = NSString(string:lactateLevel.text!).doubleValue
         let minute:Int = NSString(string: splitMinute.text!).integerValue
         let second:Int = NSString(string: splitSecond.text!).integerValue
@@ -214,15 +214,15 @@ class ViewController: UIViewController {
         dismissKeyboards()
         
         if (splitMinute.text!.isEmpty && splitSecond.text!.isEmpty && splitTenth.text!.isEmpty) {
-            let alert = UIAlertController(title: "No Split", message: "Please enter a value for your split.", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default){ _ in })
-            self.presentViewController(alert, animated: true){}
+            let alert = UIAlertController(title: "No Split", message: "Please enter a value for your split.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default){ _ in })
+            self.present(alert, animated: true){}
         } else if (lactateLevel.text!.isEmpty) {
-            let alert = UIAlertController(title: "No Lactic Acid", message: "Please enter a value for your lactic acid level.", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default){ _ in })
-            self.presentViewController(alert, animated: true){}
-        } else if (displayView.hidden == false) {
-            displayView.hidden = true
+            let alert = UIAlertController(title: "No Lactic Acid", message: "Please enter a value for your lactic acid level.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default){ _ in })
+            self.present(alert, animated: true){}
+        } else if (displayView.isHidden == false) {
+            displayView.isHidden = true
         } else {
             calculationIsPerformed = true
             displayIsSplit = true
@@ -230,7 +230,7 @@ class ViewController: UIViewController {
             finalSplitString = split.performLacticAcidCalculation(lactate).convertToString()
             finalWattsString = String(format: "%.1f",split.performLacticAcidCalculation(lactate).convertToWatts())
             display.text = finalSplitString;
-            displayView.hidden = false
+            displayView.isHidden = false
         }
     }
     
@@ -248,15 +248,15 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToAddLactation(sender:UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? HeartRateViewController, heartRate = sourceViewController.heartRate {
+    @IBAction func unwindToAddLactation(_ sender:UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? HeartRateViewController, let heartRate = sourceViewController.heartRate {
             heartRateLabel.text = heartRate
-            heartButton.setImage(UIImage(named: "heartFilledIcon"), forState: UIControlState.Normal)
+            heartButton.setImage(UIImage(named: "heartFilledIcon"), for: UIControlState())
         }
-        if let sourceViewController = sender.sourceViewController as? PM5ViewController, avgSplit = sourceViewController.avgSplit, spm = sourceViewController.strokeRate, drag = sourceViewController.avgDrag {
-            var splitMinutesArray = avgSplit.componentsSeparatedByString(":")
+        if let sourceViewController = sender.source as? PM5ViewController, let avgSplit = sourceViewController.avgSplit, let spm = sourceViewController.strokeRate, let drag = sourceViewController.avgDrag {
+            var splitMinutesArray = avgSplit.components(separatedBy: ":")
             splitMinute.text = splitMinutesArray[0]
-            var splitSecondsArray = splitMinutesArray[1].componentsSeparatedByString(".")
+            var splitSecondsArray = splitMinutesArray[1].components(separatedBy: ".")
             splitSecond.text = splitSecondsArray[0]
             splitTenth.text = splitSecondsArray[1]
             strokeRate.text = spm

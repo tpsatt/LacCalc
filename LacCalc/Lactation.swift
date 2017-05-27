@@ -9,17 +9,17 @@
 import UIKit
 
 class Lactation: NSObject, NSCoding {
-    var date: NSDate
+    var date: Date
     var split: Split
     var lacticAcid: Double
     var strokeRate: Int?
     var dragFactor: Int?
     var heartRate: Int?
 
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("lactations")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("lactations")
     
-    init? (date: NSDate, split: Split, lacticAcid: Double, strokeRate: Int?, dragFactor: Int?, heartRate: Int?) {
+    init? (date: Date, split: Split, lacticAcid: Double, strokeRate: Int?, dragFactor: Int?, heartRate: Int?) {
         self.date = date
         self.split = split
         self.lacticAcid = lacticAcid
@@ -43,22 +43,22 @@ class Lactation: NSObject, NSCoding {
         static let heartRateKey = "heartRate"
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(date, forKey: PropertyKey.dateKey)
-        aCoder.encodeObject(split, forKey: PropertyKey.splitKey)
-        aCoder.encodeDouble(lacticAcid, forKey: PropertyKey.lacticAcidKey)
-        aCoder.encodeInteger((strokeRate)!, forKey: PropertyKey.strokeRateKey)
-        aCoder.encodeInteger((dragFactor)!, forKey: PropertyKey.dragFactorKey)
-        aCoder.encodeInteger((heartRate)!, forKey: PropertyKey.heartRateKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(date, forKey: PropertyKey.dateKey)
+        aCoder.encode(split, forKey: PropertyKey.splitKey)
+        aCoder.encode(lacticAcid, forKey: PropertyKey.lacticAcidKey)
+        aCoder.encode((strokeRate)!, forKey: PropertyKey.strokeRateKey)
+        aCoder.encode((dragFactor)!, forKey: PropertyKey.dragFactorKey)
+        aCoder.encode((heartRate)!, forKey: PropertyKey.heartRateKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let date = aDecoder.decodeObjectForKey(PropertyKey.dateKey) as! NSDate
-        let split = aDecoder.decodeObjectForKey(PropertyKey.splitKey) as! Split
-        let lacticAcid = aDecoder.decodeDoubleForKey(PropertyKey.lacticAcidKey)
-        let strokeRate = aDecoder.decodeIntegerForKey(PropertyKey.strokeRateKey)
-        let dragFactor = aDecoder.decodeIntegerForKey(PropertyKey.dragFactorKey)
-        let heartRate = aDecoder.decodeIntegerForKey(PropertyKey.heartRateKey)
+        let date = aDecoder.decodeObject(forKey: PropertyKey.dateKey) as! Date
+        let split = aDecoder.decodeObject(forKey: PropertyKey.splitKey) as! Split
+        let lacticAcid = aDecoder.decodeDouble(forKey: PropertyKey.lacticAcidKey)
+        let strokeRate = aDecoder.decodeInteger(forKey: PropertyKey.strokeRateKey)
+        let dragFactor = aDecoder.decodeInteger(forKey: PropertyKey.dragFactorKey)
+        let heartRate = aDecoder.decodeInteger(forKey: PropertyKey.heartRateKey)
         
         self.init(date: date, split: split, lacticAcid: lacticAcid, strokeRate: strokeRate, dragFactor: dragFactor, heartRate: heartRate)
     }

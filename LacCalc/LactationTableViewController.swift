@@ -15,7 +15,7 @@ class LactationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem = editButtonItem
         //navigationController?.navigationBar.barTintColor = UIColor.init(red: 72.0/255.0, green: 85.0/255.0, blue: 99.0/255.0, alpha: 1.0)
         //navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
@@ -27,11 +27,11 @@ class LactationTableViewController: UITableViewController {
     }
     
     func loadSampleLactations() {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        let date1 = dateFormatter.dateFromString("September 21, 2015")
-        let date2 = dateFormatter.dateFromString("October 4, 2015")
-        let date3 = dateFormatter.dateFromString("January 7, 2016")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        let date1 = dateFormatter.date(from: "September 21, 2015")
+        let date2 = dateFormatter.date(from: "October 4, 2015")
+        let date3 = dateFormatter.date(from: "January 7, 2016")
         let split1 = Split(minutes: 1, seconds: 57, tenths: 2)
         let split2 = Split(minutes: 1, seconds: 55, tenths: 5)
         let split3 = Split(minutes: 1, seconds: 54, tenths: 5)
@@ -53,28 +53,28 @@ class LactationTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
         
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return lactations.count
         
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "LactationTableViewCell"
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LactationTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! LactationTableViewCell
         
-        let lactation = lactations[indexPath.row]
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        let dateString = dateFormatter.stringFromDate(lactation.date)
+        let lactation = lactations[(indexPath as NSIndexPath).row]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        let dateString = dateFormatter.string(from: lactation.date as Date)
         
         cell.dateLabel.text = dateString
         cell.descriptionLabel.text = String(format: "%@ at %.1f mmol/L",lactation.split.convertToString(),lactation.lacticAcid)
@@ -82,15 +82,15 @@ class LactationTableViewController: UITableViewController {
         return cell
     }
     
-    @IBAction func unwindToLactationList(sender:UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? ViewController, lactation = sourceViewController.lactation {
+    @IBAction func unwindToLactationList(_ sender:UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? ViewController, let lactation = sourceViewController.lactation {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                lactations[selectedIndexPath.row] = lactation
-                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+                lactations[(selectedIndexPath as NSIndexPath).row] = lactation
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
             } else {
-                let newIndexPath = NSIndexPath(forRow: lactations.count, inSection: 0)
+                let newIndexPath = IndexPath(row: lactations.count, section: 0)
                 lactations.append(lactation)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+                tableView.insertRows(at: [newIndexPath], with: .bottom)
             }
             
             saveLactations()
@@ -98,25 +98,25 @@ class LactationTableViewController: UITableViewController {
     }
 
     // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            lactations.removeAtIndex(indexPath.row)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            lactations.remove(at: (indexPath as NSIndexPath).row)
             saveLactations()
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
     
     // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        lactations.insert(lactations.removeAtIndex(fromIndexPath.row), atIndex: toIndexPath.row)
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        lactations.insert(lactations.remove(at: (fromIndexPath as NSIndexPath).row), at: (toIndexPath as NSIndexPath).row)
         saveLactations()
     }
 
@@ -131,12 +131,12 @@ class LactationTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ShowDetail") {
-            let lactationDetailViewController = segue.destinationViewController as! ViewController
+            let lactationDetailViewController = segue.destination as! ViewController
             if let selectedLactationCell = sender as? LactationTableViewCell {
-                let indexPath = tableView.indexPathForCell(selectedLactationCell)!
-                let selectedLactation = lactations[indexPath.row]
+                let indexPath = tableView.indexPath(for: selectedLactationCell)!
+                let selectedLactation = lactations[(indexPath as NSIndexPath).row]
                 lactationDetailViewController.lactation = selectedLactation
             }
         } else if (segue.identifier == "AddItem") {
@@ -144,18 +144,18 @@ class LactationTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setToolbarHidden(true, animated: animated)
     }
     
     func saveLactations() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(lactations, toFile: Lactation.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(lactations, toFile: Lactation.ArchiveURL.path)
         
         if (!isSuccessfulSave) {
             print("Failed to save lactations")
@@ -163,7 +163,7 @@ class LactationTableViewController: UITableViewController {
     }
     
     func loadLactations() -> [Lactation]? {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Lactation.ArchiveURL.path!) as? [Lactation]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Lactation.ArchiveURL.path) as? [Lactation]
     }
 
 }

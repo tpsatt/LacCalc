@@ -18,11 +18,11 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
         super.viewDidLoad()
         statusLabel.text = "Searching for Bluetooth heart rate monitors..."
         heartRateBPM.text = "---"
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         let viewTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(HeartRateViewController.dismissKeyboards))
         view.addGestureRecognizer(viewTap)
         let manualTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(HeartRateViewController.manualViewTap))
-        manualView.userInteractionEnabled = true
+        manualView.isUserInteractionEnabled = true
         manualView.addGestureRecognizer(manualTap)
         manualHeartRate.delegate = self
     }
@@ -34,7 +34,7 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        centralManager = CBCentralManager(delegate: self, queue: dispatch_get_main_queue())
+        centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
     }
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -46,25 +46,25 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
     @IBOutlet weak var manualView: UIView!
     var heartRate: String!
     
-    @IBAction func segmentedControlChanged(sender : AnyObject) {
-        saveButton.enabled = false
+    @IBAction func segmentedControlChanged(_ sender : AnyObject) {
+        saveButton.isEnabled = false
         if (segmentedControl.selectedSegmentIndex == 0) {
-            manualView.hidden = true
-            bluetoothView.hidden = false
+            manualView.isHidden = true
+            bluetoothView.isHidden = false
         } else if (segmentedControl.selectedSegmentIndex == 1) {
-            bluetoothView.hidden = true
-            manualView.hidden = false
+            bluetoothView.isHidden = true
+            manualView.isHidden = false
             if (manualHeartRate.text != "") {
-                saveButton.enabled = true
+                saveButton.isEnabled = true
             }
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if (manualHeartRate.text != "") {
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         } else {
-            saveButton.enabled = false
+            saveButton.isEnabled = false
         }
     }
     
@@ -76,63 +76,63 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
         manualHeartRate.resignFirstResponder()
     }
     
-    func centralManagerDidUpdateState(central: CBCentralManager) {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-        case .PoweredOn:
+        case .poweredOn:
             let serviceUUIDs:[CBUUID] = [CBUUID(string: "180D")]
-            let lastPeripherals = centralManager.retrieveConnectedPeripheralsWithServices(serviceUUIDs)
+            let lastPeripherals = centralManager.retrieveConnectedPeripherals(withServices: serviceUUIDs)
             if lastPeripherals.count > 0 {
                 let device = lastPeripherals.last as CBPeripheral!
                 connectingPeripheral = device
-                centralManager.connectPeripheral(connectingPeripheral, options: nil)
+                centralManager.connect(connectingPeripheral, options: nil)
             } else {
-                centralManager.scanForPeripheralsWithServices(serviceUUIDs, options: nil)
+                centralManager.scanForPeripherals(withServices: serviceUUIDs, options: nil)
             }
         default:
             print(central.state)
         }
     }
     
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         connectingPeripheral = peripheral
         connectingPeripheral.delegate = self
-        centralManager.connectPeripheral(connectingPeripheral, options: nil)
+        centralManager.connect(connectingPeripheral, options: nil)
     }
     
-    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
         peripheral.discoverServices(nil)
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let actualError = error {
             print(actualError)
         } else {
             for service in peripheral.services as [CBService]! {
-                peripheral.discoverCharacteristics(nil, forService: service)
+                peripheral.discoverCharacteristics(nil, for: service)
             }
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let actualError = error {
             print(actualError)
         } else {
-            if service.UUID == CBUUID(string: "180D") {
+            if service.uuid == CBUUID(string: "180D") {
                 for characteristic in service.characteristics as [CBCharacteristic]! {
-                    switch characteristic.UUID.UUIDString {
+                    switch characteristic.uuid.uuidString {
                     case "2A37":
                         print("Found heart rate measurement characteristic")
                         statusLabel.text = "Connected!"
-                        peripheral.setNotifyValue(true, forCharacteristic: characteristic)
+                        peripheral.setNotifyValue(true, for: characteristic)
                     case "2A38":
                         print("Found body sensor location characteristic")
-                        peripheral.readValueForCharacteristic(characteristic)
+                        peripheral.readValue(for: characteristic)
                     case "2A39":
                         print("Found heart rate control point characteristic")
                         var rawArray:[UInt8] = [0x01]
                         let data = NSData(bytes: &rawArray, length: rawArray.count)
-                        peripheral.writeValue(data, forCharacteristic: characteristic, type: CBCharacteristicWriteType.WithoutResponse)
+                        peripheral.writeValue(data as Data, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
                     default:
                         print("")
                     }
@@ -141,9 +141,9 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
         }
     }
     
-    func update(heartRateData:NSData) {
-        var buffer = [UInt8](count: heartRateData.length, repeatedValue: 0x00)
-        heartRateData.getBytes(&buffer, length: buffer.count)
+    func update(_ heartRateData:Data) {
+        var buffer = [UInt8](repeating: 0x00, count: heartRateData.count)
+        (heartRateData as NSData).getBytes(&buffer, length: buffer.count)
         
         var bpm:UInt16?
         if (buffer.count >= 2) {
@@ -157,18 +157,18 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
         
         if let actualBPM = bpm {
             heartRateBPM.text = String(actualBPM)
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         } else {
-            heartRateBPM.text = String(bpm)
-            saveButton.enabled = true
+            heartRateBPM.text = String(describing: bpm)
+            saveButton.isEnabled = true
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if let actualError = error {
             print(actualError)
         } else {
-            switch characteristic.UUID.UUIDString {
+            switch characteristic.uuid.uuidString {
             case "2A37":
                 update(characteristic.value!)
             default:
@@ -179,15 +179,15 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     // MARK: - Navigation
     
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepare(for segue: UIStoryboardSegue, sender: UIBarButtonItem) {
         if (saveButton === sender) {
-            if (manualView.hidden == false) {
+            if (manualView.isHidden == false) {
                 heartRate = manualHeartRate.text!
-            } else if (bluetoothView.hidden == false) {
+            } else if (bluetoothView.isHidden == false) {
                 heartRate = heartRateBPM.text!
             }
         }

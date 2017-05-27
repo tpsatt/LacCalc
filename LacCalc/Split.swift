@@ -69,7 +69,7 @@ class Split: NSObject, NSCoding {
         return finalString
     }
     
-    func performLacticAcidCalculation(lacticAcidLevel: Double) -> Split {
+    func performLacticAcidCalculation(_ lacticAcidLevel: Double) -> Split {
         var newWatts:Double = self.convertToWatts()
         newWatts = pow(newWatts,8)
         newWatts *= goalLacticAcidLevel
@@ -78,7 +78,7 @@ class Split: NSObject, NSCoding {
         return Split(fromWatts: newWatts)
     }
     
-    static func convertSecondsToSplit (seconds: Double) -> String {
+    static func convertSecondsToSplit (_ seconds: Double) -> String {
         var finalString: String
         var finalMinutes: Int
         var finalSeconds: Int
@@ -102,16 +102,16 @@ class Split: NSObject, NSCoding {
         static let tenthsKey = "tenths"
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInteger(minutes, forKey: PropertyKey.minutesKey)
-        aCoder.encodeInteger(seconds, forKey: PropertyKey.secondsKey)
-        aCoder.encodeInteger(tenths, forKey: PropertyKey.tenthsKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(minutes, forKey: PropertyKey.minutesKey)
+        aCoder.encode(seconds, forKey: PropertyKey.secondsKey)
+        aCoder.encode(tenths, forKey: PropertyKey.tenthsKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let minutes = aDecoder.decodeIntegerForKey(PropertyKey.minutesKey)
-        let seconds = aDecoder.decodeIntegerForKey(PropertyKey.secondsKey)
-        let tenths = aDecoder.decodeIntegerForKey(PropertyKey.tenthsKey)
+        let minutes = aDecoder.decodeInteger(forKey: PropertyKey.minutesKey)
+        let seconds = aDecoder.decodeInteger(forKey: PropertyKey.secondsKey)
+        let tenths = aDecoder.decodeInteger(forKey: PropertyKey.tenthsKey)
         
         self.init(minutes: minutes, seconds: seconds, tenths: tenths)
     }
