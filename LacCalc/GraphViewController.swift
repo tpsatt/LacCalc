@@ -38,15 +38,9 @@ class GraphViewController: UIViewController {
     @IBOutlet weak var minWattsLabel : UILabel!
     @IBOutlet weak var minWattsDate : UILabel!
     @IBOutlet weak var maxWattsDate : UILabel!
-    @IBOutlet weak var scrollView: UIScrollView!
-    
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        scrollView.contentSize.height = splitGraphView.bounds.height + wattsGraphView.bounds.height + 30
-    }
     
     func setUpGraph() {
         
-        //var lactations:[Lactation] = (NSKeyedUnarchiver.unarchiveObject(withFile: Lactation.ArchiveURL.path) as? [Lactation])!
         var lactations: [Lactation] = NSKeyedUnarchiver.unarchiveObject(withFile: Lactation.ArchiveURL.path) as! [Lactation]
         
         wattsGraphView.yPoints.removeAll()
@@ -86,7 +80,6 @@ class GraphViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        scrollView.contentSize.height = splitGraphView.bounds.height + wattsGraphView.bounds.height + 30
     }
 
 

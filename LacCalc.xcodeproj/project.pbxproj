@@ -127,20 +127,20 @@
 			isa = PBXGroup;
 			children = (
 				B1F1BD1F1C3F4427000A3EF1 /* AppDelegate.swift */,
-				B1F1BD211C3F4427000A3EF1 /* LactationViewController.swift */,
-				B1F1BD231C3F4427000A3EF1 /* Main.storyboard */,
 				B18DF0141C4547E900BC32C4 /* GraphViewController.swift */,
-				B18DF0111C4545F100BC32C4 /* GraphView.swift */,
+				B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */,
 				B1B648C01C417EAA0000D3DA /* LactationTableViewCell.swift */,
+				B1B648C51C41BAA20000D3DA /* LactationTableViewController.swift */,
+				B1F1BD211C3F4427000A3EF1 /* LactationViewController.swift */,
+				B1CFE0181C9701E900695C7A /* PM5ViewController.swift */,
+				B1F1BD231C3F4427000A3EF1 /* Main.storyboard */,
 				B1F1BD261C3F4427000A3EF1 /* Assets.xcassets */,
 				B1F1BD281C3F4427000A3EF1 /* LaunchScreen.storyboard */,
 				B1F1BD2B1C3F4427000A3EF1 /* Info.plist */,
+				B18DF0111C4545F100BC32C4 /* GraphView.swift */,
 				B1B648C21C41826F0000D3DA /* Lactation.swift */,
 				B1DB28E71C441F7700C16F71 /* Split.swift */,
 				B1609C341C9B394A0013DD25 /* Stroke.swift */,
-				B1B648C51C41BAA20000D3DA /* LactationTableViewController.swift */,
-				B19CC4A11C66709D00E86E96 /* HeartRateViewController.swift */,
-				B1CFE0181C9701E900695C7A /* PM5ViewController.swift */,
 			);
 			path = LacCalc;
 			sourceTree = "<group>";

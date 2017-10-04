@@ -15,7 +15,6 @@ import UIKit
     
     var yPoints: [Int] = [0]
     var xPoints:[Int] = [0]
-    //var graphPoints:[Int] = [4, 2, 6, 4, 5, 8, 3]
     
     override func draw(_ rect: CGRect) {
         let minimumValue:Int = yPoints.min()!
@@ -58,7 +57,7 @@ import UIKit
             return x
         }*/
         
-        let topBorder:CGFloat = 60
+        let topBorder:CGFloat = 35
         let bottomBorder:CGFloat = 30
         let graphHeight = height - topBorder - bottomBorder
         let maxValue = yPoints.max()

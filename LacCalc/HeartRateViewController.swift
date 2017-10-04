@@ -179,17 +179,20 @@ class HeartRateViewController: UIViewController, CBCentralManagerDelegate, CBPer
     
     // MARK: - Navigation
     
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
+    @IBAction func cancel(sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
-    func prepare(for segue: UIStoryboardSegue, sender: UIBarButtonItem) {
-        if (saveButton === sender) {
-            if (manualView.isHidden == false) {
-                heartRate = manualHeartRate.text!
-            } else if (bluetoothView.isHidden == false) {
-                heartRate = heartRateBPM.text!
-            }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            return
+        }
+        if (manualView.isHidden == false) {
+            heartRate = manualHeartRate.text!
+        } else if (bluetoothView.isHidden == false) {
+            heartRate = heartRateBPM.text!
         }
     }
 

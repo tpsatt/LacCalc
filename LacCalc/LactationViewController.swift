@@ -22,15 +22,15 @@ class ViewController: UIViewController {
             let dateString = dateFormatter.string(from: lactation.date as Date)
             navigationItem.title = dateString
             dateLabel.text = dateString
-            splitMinute.text = NSString(format: "%i", lactation.split.minutes) as String
-            splitSecond.text = NSString(format: "%i", lactation.split.seconds) as String
-            splitTenth.text = NSString(format: "%i", lactation.split.tenths) as String
-            lactateLevel.text = NSString(format: "%.1f", lactation.lacticAcid) as String
-            if (lactation.strokeRate != 0) { strokeRate.text = NSString(format: "%i", lactation.strokeRate!) as String }
-            if (lactation.dragFactor != 0) { dragFactor.text = NSString(format: "%i", lactation.dragFactor!) as String }
+            splitMinute.text = String(lactation.split.minutes)
+            splitSecond.text = String(lactation.split.seconds)
+            splitTenth.text = String(lactation.split.tenths)
+            lactateLevel.text = String(format: "%.1f", lactation.lacticAcid)
+            if (lactation.strokeRate != 0) { strokeRate.text = String(lactation.strokeRate!) }
+            if (lactation.dragFactor != 0) { dragFactor.text = String(lactation.dragFactor!) }
             if (lactation.heartRate != 0) {
-                heartRateLabel.text = NSString(format: "%i", lactation.heartRate!) as String
-                heartButton.setImage(UIImage(named: "heartFilledIcon"), for: UIControlState())
+                heartRateLabel.text = String(lactation.heartRate!)
+                heartButton.setImage(UIImage(named: "heartFilledIcon"), for: .normal)
             }
         } else {
             dateLabel.text = dateFormatter.string(from: Date())
@@ -191,24 +191,29 @@ class ViewController: UIViewController {
         }
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: UIBarButtonItem) {
-        if (saveButton === sender) {
-            let date = datePicker.date
-            let lacticAcid = NSString(string:lactateLevel.text!).doubleValue
-            let split = Split(minutes: NSString(string: splitMinute.text!).integerValue, seconds: NSString(string: splitSecond.text!).integerValue, tenths: NSString(string: splitTenth.text!).integerValue)
-            let spm = NSString(string: strokeRate.text!).integerValue
-            let drag = NSString(string: dragFactor.text!).integerValue
-            let heart = NSString(string: heartRateLabel.text!).integerValue
-            
-            lactation = Lactation(date: date, split: split, lacticAcid: lacticAcid, strokeRate: spm, dragFactor: drag, heartRate: heart)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            return
         }
+        
+        let date = datePicker.date
+        let lacticAcid = Double(lactateLevel.text!) ?? 0
+        let split = Split(minutes: Int(splitMinute.text!) ?? 0, seconds: Int(splitSecond.text!) ?? 0, tenths: Int(splitTenth.text!) ?? 0)
+        let spm = Int(strokeRate.text!) ?? 0
+        let drag = Int(dragFactor.text!) ?? 0
+        let heart = Int(heartRateLabel.text!) ?? 0
+            
+        lactation = Lactation(date: date, split: split, lacticAcid: lacticAcid, strokeRate: spm, dragFactor: drag, heartRate: heart)
     }
     
     @IBAction func calculate (_ sender:UIButton) {
-        let lactate:Double = NSString(string:lactateLevel.text!).doubleValue
-        let minute:Int = NSString(string: splitMinute.text!).integerValue
-        let second:Int = NSString(string: splitSecond.text!).integerValue
-        let tenth:Int = NSString(string: splitTenth.text!).integerValue
+        
+        let lactate:Double = Double(lactateLevel.text!) ?? 0
+        let minute:Int = Int(splitMinute.text!) ?? 0
+        let second:Int = Int(splitSecond.text!) ?? 0
+        let tenth:Int = Int(splitTenth.text!) ?? 0
         let split:Split = Split(minutes: minute, seconds: second, tenths: tenth)
         
         dismissKeyboards()
@@ -248,7 +253,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func unwindToAddLactation(_ sender:UIStoryboardSegue) {
+    @IBAction func unwindToAddLactation(sender:UIStoryboardSegue) {
         if let sourceViewController = sender.source as? HeartRateViewController, let heartRate = sourceViewController.heartRate {
             heartRateLabel.text = heartRate
             heartButton.setImage(UIImage(named: "heartFilledIcon"), for: UIControlState())

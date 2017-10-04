@@ -11,6 +11,11 @@ import UIKit
 class LactationTableViewController: UITableViewController {
     
     var lactations = [Lactation]()
+    @IBOutlet weak var graphView: GraphView!
+    @IBOutlet weak var minSplitLabel: UILabel!
+    @IBOutlet weak var maxSplitLabel: UILabel!
+    @IBOutlet weak var minDate: UILabel!
+    @IBOutlet weak var maxDate: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,8 @@ class LactationTableViewController: UITableViewController {
         } else {
             loadSampleLactations()
         }
+        
+        drawGraph()
     }
     
     func loadSampleLactations() {
@@ -35,11 +42,36 @@ class LactationTableViewController: UITableViewController {
         let split1 = Split(minutes: 1, seconds: 57, tenths: 2)
         let split2 = Split(minutes: 1, seconds: 55, tenths: 5)
         let split3 = Split(minutes: 1, seconds: 54, tenths: 5)
-        let lactation1 = Lactation(date: date1!, split: split1, lacticAcid: 1.6, strokeRate: 0, dragFactor: 0, heartRate: 0)!
-        let lactation2 = Lactation(date: date2!, split: split2, lacticAcid: 2.0, strokeRate: 0, dragFactor: 0, heartRate: 0)!
-        let lactation3 = Lactation(date: date3!, split: split3, lacticAcid: 1.7, strokeRate: 0, dragFactor: 0, heartRate: 0)!
+        let lactation1 = Lactation(date: date1!, split: split1, lacticAcid: 1.6, strokeRate: 21, dragFactor: 125, heartRate: 152)!
+        let lactation2 = Lactation(date: date2!, split: split2, lacticAcid: 2.0, strokeRate: 20, dragFactor: 115, heartRate: 158)!
+        let lactation3 = Lactation(date: date3!, split: split3, lacticAcid: 1.7, strokeRate: 22, dragFactor: 123, heartRate: 150)!
         
         lactations += [lactation1, lactation2, lactation3]
+        
+        saveLactations()
+    }
+    
+    func drawGraph() {
+        graphView.yPoints.removeAll()
+        graphView.xPoints.removeAll()
+        
+        for i in 0..<lactations.count {
+            graphView.yPoints.append(Int(lactations[i].split.performLacticAcidCalculation(lactations[i].lacticAcid).convertToSeconds()*10))
+            graphView.xPoints.append(Int(lactations[i].date.timeIntervalSince1970))
+        }
+        
+        var maxSplit:String = Split.convertSecondsToSplit(Double(graphView.yPoints.max()!/10))
+        var minSplit:String = Split.convertSecondsToSplit(Double(graphView.yPoints.min()!/10))
+        maxSplit = String(maxSplit.characters.dropLast())
+        maxSplit = String(maxSplit.characters.dropLast())
+        minSplit = String(minSplit.characters.dropLast())
+        minSplit = String(minSplit.characters.dropLast())
+        maxSplitLabel.text = maxSplit
+        minSplitLabel.text = minSplit
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        minDate.text = dateFormatter.string(from: lactations[0].date as Date)
+        maxDate.text = dateFormatter.string(from: lactations[lactations.count-1].date as Date)
     }
     
     func getLactations() -> [Lactation] {
@@ -54,27 +86,25 @@ class LactationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
-        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return lactations.count
-        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "LactationTableViewCell"
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! LactationTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? LactationTableViewCell else {
+            fatalError("The dequeued cell is not an instance of LactationTableViewCell")
+        }
         
-        let lactation = lactations[(indexPath as NSIndexPath).row]
+        let lactation = lactations[indexPath.row]
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.long
-        let dateString = dateFormatter.string(from: lactation.date as Date)
+        let dateString = dateFormatter.string(from: lactation.date)
         
         cell.dateLabel.text = dateString
         cell.descriptionLabel.text = String(format: "%@ at %.1f mmol/L",lactation.split.convertToString(),lactation.lacticAcid)
@@ -82,10 +112,10 @@ class LactationTableViewController: UITableViewController {
         return cell
     }
     
-    @IBAction func unwindToLactationList(_ sender:UIStoryboardSegue) {
+    @IBAction func unwindToLactationList(sender:UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let lactation = sourceViewController.lactation {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                lactations[(selectedIndexPath as NSIndexPath).row] = lactation
+                lactations[selectedIndexPath.row] = lactation
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
             } else {
                 let newIndexPath = IndexPath(row: lactations.count, section: 0)
@@ -94,19 +124,19 @@ class LactationTableViewController: UITableViewController {
             }
             
             saveLactations()
+            drawGraph()
         }
     }
 
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            lactations.remove(at: (indexPath as NSIndexPath).row)
+            lactations.remove(at: indexPath.row)
             saveLactations()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -116,7 +146,7 @@ class LactationTableViewController: UITableViewController {
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
-        lactations.insert(lactations.remove(at: (fromIndexPath as NSIndexPath).row), at: (toIndexPath as NSIndexPath).row)
+        lactations.insert(lactations.remove(at: fromIndexPath.row), at: toIndexPath.row)
         saveLactations()
     }
 
@@ -136,7 +166,7 @@ class LactationTableViewController: UITableViewController {
             let lactationDetailViewController = segue.destination as! ViewController
             if let selectedLactationCell = sender as? LactationTableViewCell {
                 let indexPath = tableView.indexPath(for: selectedLactationCell)!
-                let selectedLactation = lactations[(indexPath as NSIndexPath).row]
+                let selectedLactation = lactations[indexPath.row]
                 lactationDetailViewController.lactation = selectedLactation
             }
         } else if (segue.identifier == "AddItem") {

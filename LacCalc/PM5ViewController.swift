@@ -198,12 +198,15 @@ class PM5ViewController: UIViewController, CBCentralManagerDelegate, CBPeriphera
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    func prepare(for segue: UIStoryboardSegue, sender: UIBarButtonItem) {
-        if (saveButton === sender) {
-            avgSplit = avgSplitLabel.text!
-            strokeRate = strokeRateLabel.text!
-            avgDrag = String(dragFactor)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            return
         }
+        avgSplit = avgSplitLabel.text!
+        strokeRate = strokeRateLabel.text!
+        avgDrag = String(dragFactor)
     }
 
 }
